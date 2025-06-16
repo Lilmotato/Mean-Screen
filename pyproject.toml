@@ -1,0 +1,47 @@
+[project]
+name = "hate-speech-detector"
+version = "0.1.0"
+description = "GenAI assistant to detect and reason about hate speech"
+authors = [
+  {name = "Mahika", email = "Mahika@example.com"}
+]
+requires-python = ">=3.11"
+
+dependencies = [
+    "fastapi[standard]",
+    "uvicorn[standard]",
+    "openai",
+    "pydantic",
+    "streamlit",
+    "python-dotenv",
+    "qdrant-client",
+    "sentence-transformers",
+    "faiss-cpu",
+    "langchain",
+    "openai",
+    "openai-whisper",
+    "aidial-integration-langchain",
+    "aiohttp",
+]
+
+[project.optional-dependencies]
+dev = ["black", "isort", "flake8", "mypy", "pytest", "pytest-cov", "pre-commit"]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["hate_speech_detector*"]
+
+[tool.uv]
+dev-dependencies = [
+    "black", 
+    "isort", 
+    "flake8", 
+    "mypy", 
+    "pytest", 
+    "pytest-cov", 
+    "pre-commit"
+]
