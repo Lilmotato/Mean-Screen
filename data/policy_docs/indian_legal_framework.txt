@@ -1,0 +1,26 @@
+Indian Legal Framework - Hate Speech and Online Content
+
+Indian Penal Code Section 153A - Promoting Enmity Between Groups
+Whoever promotes or attempts to promote disharmony, enmity, hatred, or ill-will between different religious, racial, language, or regional groups shall be punished with imprisonment up to three years or fine, or both.
+
+Indian Penal Code Section 295A - Deliberate Malicious Acts Against Religion
+Whoever deliberately and maliciously acts intended to outrage religious feelings by insulting religion or religious beliefs shall be punished with imprisonment up to three years or fine, or both.
+
+Information Technology Act 2000 - Section 66A (Struck Down)
+Previously criminalized offensive messages sent through communication services. Supreme Court struck down in 2015 for being unconstitutionally vague.
+
+Information Technology Rules 2021:
+- Social media platforms must remove non-consensual intimate images within 24 hours
+- Platforms must establish grievance redressal mechanisms
+- Content deemed harmful to sovereignty, integrity, defense, or public order must be removed
+
+Constitutional Framework:
+- Article 19(1)(a) guarantees freedom of speech and expression
+- Article 19(2) allows reasonable restrictions on hate speech, public order, decency, morality
+- Balance between free expression and preventing communal discord
+
+Key Legal Principles:
+- Content that promotes hatred between communities is prohibited
+- Religious sentiments must be respected while allowing criticism
+- Online platforms have due diligence obligations
+- Clear and present danger test for restricting speech

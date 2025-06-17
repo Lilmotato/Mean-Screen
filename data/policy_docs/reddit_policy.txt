@@ -1,0 +1,21 @@
+Reddit Content Policy - Hate Speech and Harassment
+
+Reddit does not allow content that promotes hate based on identity or vulnerability, including race, ethnicity, religion, gender, sexual orientation, disability, or nationality.
+
+Prohibited Content:
+- Content that incites violence against individuals or groups
+- Dehumanizing language or content that reduces individuals to less than human
+- Content promoting segregation or exclusion based on protected characteristics
+- Targeted harassment that degrades or intimidates individuals
+- Slurs and epithets used to attack or demean protected groups
+
+Enforcement Actions:
+- Content removal and user warnings for minor violations
+- Temporary suspensions for repeated violations
+- Permanent bans for severe violations or patterns of abuse
+- Community quarantine for subreddits that consistently violate policies
+
+Context Considerations:
+- Educational, newsworthy, artistic, or satirical content may be permitted with proper context
+- Self-referential use of slurs by members of affected communities may be permitted
+- Historical or academic discussion requires appropriate framing and educational purpose

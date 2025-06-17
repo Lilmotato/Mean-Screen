@@ -1,0 +1,32 @@
+YouTube Community Guidelines - Hate Speech Policy
+
+YouTube doesn't allow content that promotes violence or hatred against individuals or groups based on protected attributes.
+
+Protected Attributes:
+- Age, caste, disability, ethnicity, gender identity/expression
+- Nationality, race, immigration status, religion, sex/gender
+- Sexual orientation, victims of major violent events, veteran status
+
+Prohibited Content:
+- Incitement to violence against individuals or groups
+- Content that dehumanizes individuals or groups
+- Content alleging superiority to justify violence, discrimination, segregation
+- Conspiracy theories claiming protected groups are responsible for controlling world events
+- Denial of well-documented violent events (Holocaust, Sandy Hook, etc.)
+
+Content Monetization:
+- Channels with hate speech violations may lose monetization privileges
+- Repeated violations lead to channel termination
+- Advertisers may exclude content from monetization programs
+
+Educational Exceptions:
+- Academic discussions of historical events may be permitted
+- Content must provide educational context and condemn hate speech
+- Documentary content about hate groups requires appropriate context
+- News reporting on hate incidents must be objective and informative
+
+Enforcement Actions:
+- Content removal and strike system
+- Channel suspension for repeat violations
+- Permanent termination for severe violations
+- Age-restriction for borderline content with educational value

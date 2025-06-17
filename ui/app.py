@@ -1,3 +1,25 @@
+# ui/app.py
+
+"""
+Streamlit UI for Hate Speech Detection Bento Box
+
+This interface allows users to:
+- Enter text or record audio input
+- Analyze the input using a 4-agent LLM pipeline via FastAPI
+- View results as a structured Bento Box:
+    1. Classification
+    2. Policy Retrieval
+    3. Reasoning
+    4. Recommended Action
+
+Modules Used:
+- `client.py` for orchestrator API call
+- `components.py` for visualization
+- `audio.py` for recording/transcribing audio input
+
+Author: [Your Name]
+"""
+
 import time
 import streamlit as st
 from client import analyze_text
@@ -7,13 +29,14 @@ from components import (
     show_explanation,
     show_recommendation
 )
+from audio import record_audio, transcribe_audio  # Audio module
 
-# --- Page Setup ---
+# --- Streamlit Page Config ---
 st.set_page_config(page_title="Hate Speech Analyzer", layout="centered")
 st.title("🍱 Hate Speech Detection Bento Box")
 st.caption("Analyze input for hate speech using a 4-agent LLM pipeline")
 
-# --- Styling ---
+# --- Custom CSS Styling ---
 st.markdown("""
 <style>
 .bento {
@@ -41,36 +64,45 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Input Form ---
-with st.form(key="analyze_form"):
-    user_input = st.text_area("✏️ Paste or type your text here", height=150)
-    submit = st.form_submit_button("🚀 Analyze")
+# --- Input Section ---
+st.markdown("### 🎙️ Record Audio or 📝 Enter Text")
 
-# --- Execution Flow ---
-if submit and user_input.strip():
+text_input = st.text_area("Text Input", height=150)
+audio_bytes = record_audio()
+
+# Determine final input source
+user_input = None
+if audio_bytes:
+    st.info("🔄 Transcribing audio...")
+    user_input = transcribe_audio(audio_bytes)
+    st.text_area("📝 Transcribed Text", value=user_input, height=100)
+elif text_input.strip():
+    user_input = text_input.strip()
+
+# --- Input Form (Submit Button) ---
+if st.button("🚀 Analyze") and user_input:
     flow_status = st.empty()
-    response_container = st.container()
+    result_container = st.container()
 
     try:
-        flow_status.markdown("⏳ **Step 1/5**: Sending text to orchestrator...")
-
-        # Analyze
+        # Stepwise Flow Status
+        flow_status.markdown("⏳ **Step 1/5**: Sending input to orchestrator...")
         result = analyze_text(user_input)
 
         flow_status.markdown("✅ **Step 2/5**: Detector classified the input...")
         time.sleep(0.4)
 
-        flow_status.markdown("✅ **Step 3/5**: Retriever pulled relevant policy docs...")
+        flow_status.markdown("✅ **Step 3/5**: Retriever pulled relevant policies...")
         time.sleep(0.4)
 
-        flow_status.markdown("✅ **Step 4/5**: Reasoner explained classification based on policies...")
+        flow_status.markdown("✅ **Step 4/5**: Reasoner explained the decision...")
         time.sleep(0.4)
 
         flow_status.markdown("✅ **Step 5/5**: Recommender mapped action...")
 
-        # Show Results Bento-style
-        with response_container:
-            st.markdown('<div class="agent-flow">Text Input → Orchestrator → [Detector, Retriever, Reasoner, Recommender] → Structured Response</div>', unsafe_allow_html=True)
+        # --- Results Bento Box Display ---
+        with result_container:
+            st.markdown('<div class="agent-flow">Input → Orchestrator → [Detector, Retriever, Reasoner, Recommender] → Output</div>', unsafe_allow_html=True)
             st.markdown('<div class="bento">', unsafe_allow_html=True)
 
             st.markdown('<div class="bento-box">', unsafe_allow_html=True)
