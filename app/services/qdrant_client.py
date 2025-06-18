@@ -4,14 +4,13 @@ from app.services.embed_service import get_embedding_service
 import os
 import uuid
 
-embedding_service = get_embedding_service()
-
 client = QdrantClient(url=os.getenv("QDRANT_HOST", "http://localhost:6333"))
 COLLECTION_NAME = "policies"
 
 
 def init_collection():
     """Initialize collection if it doesn't exist"""
+    embedding_service = get_embedding_service()
     collections = [col.name for col in client.get_collections().collections]
     if COLLECTION_NAME not in collections:
         client.recreate_collection(
@@ -24,6 +23,7 @@ def init_collection():
 
 def add_policy(vector: list[float], metadata: dict) -> str:
     """Add policy to Qdrant"""
+    embedding_service = get_embedding_service()
     if not isinstance(vector, list) or len(vector) != embedding_service.dimension:
         raise ValueError("Invalid vector format")
     
@@ -35,6 +35,7 @@ def add_policy(vector: list[float], metadata: dict) -> str:
 
 def search_policies(query: str, limit: int = 3) -> list:
     """Search for similar policies"""
+    embedding_service = get_embedding_service()
     query_vector = embedding_service.embed_text(query)
     results = client.search(
         collection_name=COLLECTION_NAME,

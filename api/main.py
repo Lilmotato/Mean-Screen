@@ -1,5 +1,3 @@
-# main.py
-
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
@@ -8,7 +6,6 @@ from app.services.qdrant_client import init_collection
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize vector DB collection (Qdrant)
     init_collection()
     yield
 

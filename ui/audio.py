@@ -37,8 +37,8 @@ def transcribe_audio(audio_bytes: bytes) -> str:
         try:
             return recognizer.recognize_google(audio)
         except sr.UnknownValueError:
-            st.warning("Could not understand the audio.")
+            st.warning("Speech recognition could not understand audio.")
         except sr.RequestError as e:
-            st.error(f"Speech Recognition error: {e}")
+            st.error(f"Could not request results from Speech Recognition service: {e}")
 
     return ""

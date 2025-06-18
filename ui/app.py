@@ -1,127 +1,34 @@
-# ui/app.py
-
-"""
-Streamlit UI for Hate Speech Detection Bento Box
-
-This interface allows users to:
-- Enter text or record audio input
-- Analyze the input using a 4-agent LLM pipeline via FastAPI
-- View results as a structured Bento Box:
-    1. Classification
-    2. Policy Retrieval
-    3. Reasoning
-    4. Recommended Action
-
-Modules Used:
-- `client.py` for orchestrator API call
-- `components.py` for visualization
-- `audio.py` for recording/transcribing audio input
-
-Author: [Your Name]
-"""
-
-import time
 import streamlit as st
 from client import analyze_text
 from components import (
     show_classification,
     show_policies,
     show_explanation,
-    show_recommendation
+    show_recommendation,
 )
-from audio import record_audio, transcribe_audio  # Audio module
 
-# --- Streamlit Page Config ---
-st.set_page_config(page_title="Hate Speech Analyzer", layout="centered")
-st.title("🍱 Hate Speech Detection Bento Box")
-st.caption("Analyze input for hate speech using a 4-agent LLM pipeline")
+st.set_page_config(page_title="Hate Speech Dashboard", layout="wide")
+st.title("🧠 Hate Speech Detection | Mean-Screen")
 
-# --- Custom CSS Styling ---
-st.markdown("""
-<style>
-.bento {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding-top: 1rem;
-}
-.bento-box {
-    border: 2px solid #e5e5e5;
-    border-radius: 12px;
-    padding: 1rem;
-    background: #fafafa;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
-}
-.bento-box h4 {
-    margin-top: 0;
-}
-.agent-flow {
-    text-align: center;
-    font-weight: bold;
-    color: #888;
-    padding-bottom: 10px;
-}
-</style>
-""", unsafe_allow_html=True)
+st.markdown("Analyze input text using a 4-agent moderation system.")
 
-# --- Input Section ---
-st.markdown("### 🎙️ Record Audio or 📝 Enter Text")
+text_input = st.text_area("📝 Enter Text", height=180)
 
-text_input = st.text_area("Text Input", height=150)
-audio_bytes = record_audio()
+if st.button("🚀 Run Analysis") and text_input.strip():
+    with st.spinner("Analyzing input..."):
+        try:
+            result = analyze_text(text_input.strip())
 
-# Determine final input source
-user_input = None
-if audio_bytes:
-    st.info("🔄 Transcribing audio...")
-    user_input = transcribe_audio(audio_bytes)
-    st.text_area("📝 Transcribed Text", value=user_input, height=100)
-elif text_input.strip():
-    user_input = text_input.strip()
+            st.markdown("## 🧩 Agent Pipeline")
+            col1, col2 = st.columns(2)
 
-# --- Input Form (Submit Button) ---
-if st.button("🚀 Analyze") and user_input:
-    flow_status = st.empty()
-    result_container = st.container()
+            with col1:
+                show_classification(result)
+                show_explanation(result)
 
-    try:
-        # Stepwise Flow Status
-        flow_status.markdown("⏳ **Step 1/5**: Sending input to orchestrator...")
-        result = analyze_text(user_input)
+            with col2:
+                show_policies(result)
+                show_recommendation(result)
 
-        flow_status.markdown("✅ **Step 2/5**: Detector classified the input...")
-        time.sleep(0.4)
-
-        flow_status.markdown("✅ **Step 3/5**: Retriever pulled relevant policies...")
-        time.sleep(0.4)
-
-        flow_status.markdown("✅ **Step 4/5**: Reasoner explained the decision...")
-        time.sleep(0.4)
-
-        flow_status.markdown("✅ **Step 5/5**: Recommender mapped action...")
-
-        # --- Results Bento Box Display ---
-        with result_container:
-            st.markdown('<div class="agent-flow">Input → Orchestrator → [Detector, Retriever, Reasoner, Recommender] → Output</div>', unsafe_allow_html=True)
-            st.markdown('<div class="bento">', unsafe_allow_html=True)
-
-            st.markdown('<div class="bento-box">', unsafe_allow_html=True)
-            show_classification(result)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            st.markdown('<div class="bento-box">', unsafe_allow_html=True)
-            show_policies(result)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            st.markdown('<div class="bento-box">', unsafe_allow_html=True)
-            show_explanation(result)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            st.markdown('<div class="bento-box">', unsafe_allow_html=True)
-            show_recommendation(result)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            st.markdown('</div>', unsafe_allow_html=True)
-
-    except Exception as e:
-        flow_status.error(f"❌ Error: {e}")
+        except Exception as e:
+            st.error(f"❌ Error: {e}")
