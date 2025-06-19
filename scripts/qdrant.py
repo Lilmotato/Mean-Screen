@@ -1,5 +1,8 @@
-from app.services.qdrant_client import (add_policy, init_policy_collection,
-                                        search_similar_policies)
+from app.services.qdrant_client import (
+    add_policy,
+    init_policy_collection,
+    search_similar_policies,
+)
 
 init_policy_collection()
 

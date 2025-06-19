@@ -1,10 +1,13 @@
 import streamlit as st
 from audio import record_audio, transcribe_audio
 from client import analyze_text
-from components import (show_classification, show_explanation, show_policies,
-                        show_recommendation)
-from export_csv import (create_csv_buffer, format_analysis_for_csv,
-                        generate_filename)
+from components import (
+    show_classification,
+    show_explanation,
+    show_policies,
+    show_recommendation,
+)
+from export_csv import create_csv_buffer, format_analysis_for_csv, generate_filename
 
 st.set_page_config(page_title="Hate Speech Dashboard", layout="wide")
 st.title("Hate Speech Detection | Mean-Screen")

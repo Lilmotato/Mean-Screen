@@ -1,24 +1,5 @@
-import json
-import os
-from typing import Any
 import streamlit as st
-from streamlit_lottie import st_lottie
-
-
-def load_lottie(filepath: str) -> dict | None:
-    """Load Lottie animation JSON."""
-    if not os.path.exists(filepath):
-        st.warning(f"Missing Lottie file: {filepath}")
-        return None
-    with open(filepath, "r") as f:
-        return json.load(f)
-
-
-def show_lottie_animation(path: str, height: int = 150, key: str = "lottie"):
-    """Display Lottie animation."""
-    anim = load_lottie(path)
-    if anim:
-        st_lottie(anim, height=height, key=key)
+from typing import Any
 
 
 def show_classification(result: dict[str, Any]):

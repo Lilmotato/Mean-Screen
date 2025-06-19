@@ -4,8 +4,7 @@ import re
 from typing import Dict, List
 
 from app.agents.base import BaseAgent
-from app.models.schemas import (ClassificationResult, PolicyDocument,
-                                RetrievalResult)
+from app.models.schemas import ClassificationResult, PolicyDocument, RetrievalResult
 from app.services.embed_service import get_embedding_service
 from app.services.qdrant_client import search_policies
 from app.utils.exceptions import RetrievalError

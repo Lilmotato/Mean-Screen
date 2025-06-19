@@ -1,4 +1,3 @@
-# ui/client.py
 import requests
 from config import API_URL
 

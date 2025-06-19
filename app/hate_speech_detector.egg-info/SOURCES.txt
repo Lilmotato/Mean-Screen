@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+app/hate_speech_detector.egg-info/PKG-INFO
+app/hate_speech_detector.egg-info/SOURCES.txt
+app/hate_speech_detector.egg-info/dependency_links.txt
+app/hate_speech_detector.egg-info/requires.txt
+app/hate_speech_detector.egg-info/top_level.txt
