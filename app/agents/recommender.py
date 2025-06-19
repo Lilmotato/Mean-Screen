@@ -1,7 +1,8 @@
 # app/agents/recommender.py
 from app.agents.base import BaseAgent
-from app.models.schemas import ClassificationResult, ActionType, SeverityLevel
+from app.models.schemas import ActionType, ClassificationResult, SeverityLevel
 from app.utils.exceptions import AgentExecutionError
+
 
 class ActionRecommender(BaseAgent):
     def __init__(self):
@@ -23,38 +24,36 @@ class ActionRecommender(BaseAgent):
                     action = ActionType.REVIEW
                     severity = SeverityLevel.MEDIUM
                     reasoning = "Potential hate speech requires human review due to lower confidence score."
-                    
+
             elif label == "toxic":
                 if confidence >= 0.7:
                     action = ActionType.WARN
                     severity = SeverityLevel.MEDIUM
-                    reasoning = "Toxic content warrants user warning and behavior monitoring."
+                    reasoning = (
+                        "Toxic content warrants user warning and behavior monitoring."
+                    )
                 else:
                     action = ActionType.REVIEW
                     severity = SeverityLevel.LOW
                     reasoning = "Potentially toxic content needs review due to confidence level."
-                    
+
             elif label == "offensive":
                 action = ActionType.REVIEW
                 severity = SeverityLevel.LOW
                 reasoning = "Offensive content requires human review for context and appropriate action."
-                
+
             elif label == "ambiguous":
                 action = ActionType.REVIEW
                 severity = SeverityLevel.LOW
                 reasoning = "Ambiguous classification requires manual review for proper determination."
-                
+
             else:  # neutral
                 action = ActionType.ALLOW
                 severity = SeverityLevel.NONE
                 reasoning = "Content is neutral and complies with community guidelines."
 
-            return {
-                "action": action,
-                "severity": severity,
-                "reasoning": reasoning
-            }
-            
+            return {"action": action, "severity": severity, "reasoning": reasoning}
+
         except Exception as e:
             raise AgentExecutionError(f"Failed to recommend action: {e}")
 

@@ -1,5 +1,5 @@
-import io
 import csv
+import io
 from datetime import datetime
 
 
@@ -24,7 +24,7 @@ def format_analysis_for_csv(input_text: str, result: dict) -> dict:
         "action_reasoning": action.get("reasoning", ""),
         "policy_sources": "; ".join(policy_sources),
         "policy_scores": "; ".join(policy_scores),
-        "policy_summaries": "\n\n---\n\n".join(policy_summaries)
+        "policy_summaries": "\n\n---\n\n".join(policy_summaries),
     }
 
 

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from app.models.schemas import AnalyzeRequest, DetailedAnalyzeResponse
+
 from app.agents.orchestrator import HateSpeechOrchestrator
+from app.models.schemas import AnalyzeRequest, DetailedAnalyzeResponse
 
 router = APIRouter(prefix="/api/v1", tags=["Hate Speech Detection"])
 orchestrator = HateSpeechOrchestrator()

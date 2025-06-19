@@ -1,10 +1,8 @@
-# ui/components.py
-
-import streamlit as st
-from typing import Any
-from streamlit_lottie import st_lottie
 import json
 import os
+from typing import Any
+import streamlit as st
+from streamlit_lottie import st_lottie
 
 
 def load_lottie(filepath: str) -> dict | None:
@@ -28,7 +26,9 @@ def show_classification(result: dict[str, Any]):
     classification = result.get("hate_speech", {})
     st.markdown(f"- **Label**: `{classification.get('classification', 'N/A')}`")
     st.markdown(f"- **Confidence**: `{classification.get('confidence', 'N/A')}`")
-    st.markdown(f"- **Reasoning**: {classification.get('reason', 'No reasoning provided.')}")
+    st.markdown(
+        f"- **Reasoning**: {classification.get('reason', 'No reasoning provided.')}"
+    )
 
 
 def show_policies(result: dict[str, Any]):
@@ -40,7 +40,9 @@ def show_policies(result: dict[str, Any]):
         return
 
     for i, policy in enumerate(policies, 1):
-        with st.expander(f"{policy.get('source', f'Policy {i}')} ({policy.get('relevance_score', 0)}%)"):
+        with st.expander(
+            f"{policy.get('source', f'Policy {i}')} ({policy.get('relevance_score', 0)}%)"
+        ):
             st.write(policy.get("summary", "No summary provided."))
 
 

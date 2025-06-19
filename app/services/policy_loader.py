@@ -1,8 +1,8 @@
-import os
 import logging
-from pathlib import Path
-from typing import List, Dict, Optional
+import os
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, List, Optional
 
 from app.services.embed_service import get_embedding_service
 from app.services.qdrant_client import add_policy, init_collection
@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PolicyMetadata:
     """Metadata structure for a policy document."""
+
     filename: str
     provider: str
     policy_type: str
@@ -42,28 +43,28 @@ class PolicyDocumentLoader:
             "reddit_policy.txt": {
                 "provider": "Reddit",
                 "type": "community_guidelines",
-                "title": "Reddit Content Policy - Hate Speech and Harassment"
+                "title": "Reddit Content Policy - Hate Speech and Harassment",
             },
             "meta_community_standards.txt": {
                 "provider": "Meta",
                 "type": "community_standards",
-                "title": "Meta Community Standards - Hate Speech Policy"
+                "title": "Meta Community Standards - Hate Speech Policy",
             },
             "indian_legal_framework.txt": {
                 "provider": "India",
                 "type": "legal_framework",
-                "title": "Indian Legal Framework - Hate Speech and Online Content"
+                "title": "Indian Legal Framework - Hate Speech and Online Content",
             },
             "youtube_community_guidelines.txt": {
                 "provider": "YouTube",
                 "type": "community_guidelines",
-                "title": "YouTube Community Guidelines - Hate Speech Policy"
+                "title": "YouTube Community Guidelines - Hate Speech Policy",
             },
             "google_prohibited_content.txt": {
                 "provider": "Google",
                 "type": "platform_policy",
-                "title": "Google Ads and Search - Prohibited Content Policy"
-            }
+                "title": "Google Ads and Search - Prohibited Content Policy",
+            },
         }
 
     def load_all_policies(self) -> List[PolicyMetadata]:
@@ -109,10 +110,10 @@ class PolicyDocumentLoader:
             info = self._provider_mapping.get(
                 file_path.name,
                 {
-                    "provider": file_path.stem.replace('_', ' ').title(),
+                    "provider": file_path.stem.replace("_", " ").title(),
                     "type": "general_policy",
-                    "title": f"{file_path.stem.replace('_', ' ').title()} Policy"
-                }
+                    "title": f"{file_path.stem.replace('_', ' ').title()} Policy",
+                },
             )
 
             return PolicyMetadata(
@@ -121,7 +122,7 @@ class PolicyDocumentLoader:
                 policy_type=info["type"],
                 title=info["title"],
                 content=content,
-                word_count=len(content.split())
+                word_count=len(content.split()),
             )
 
         except UnicodeDecodeError:
@@ -131,7 +132,9 @@ class PolicyDocumentLoader:
             logger.error(f"Unexpected error with {file_path.name}: {e}")
             return None
 
-    def store_policies_in_vector_db(self, policies: List[PolicyMetadata]) -> Dict[str, str]:
+    def store_policies_in_vector_db(
+        self, policies: List[PolicyMetadata]
+    ) -> Dict[str, str]:
         """
         Stores policies as vectors into the Qdrant vector database.
 

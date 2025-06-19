@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from datetime import datetime
+
+from pydantic import BaseModel
+
 
 class ClassificationLog(BaseModel):
     input_text: str
@@ -7,8 +9,12 @@ class ClassificationLog(BaseModel):
     policy_match: str
     moderation_action: str
     timestamp: datetime
-from pydantic import BaseModel
+
+
 from datetime import datetime
+
+from pydantic import BaseModel
+
 
 class ClassificationLog(BaseModel):
     input_text: str

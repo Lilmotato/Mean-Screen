@@ -1,7 +1,7 @@
 # app/agents/reasoner.py
 from app.agents.base import BaseAgent
+from app.models.schemas import ClassificationResult, PolicyDocument
 from app.services.llm_services import DIALService
-from app.models.schemas import PolicyDocument, ClassificationResult
 from app.utils.exceptions import AgentExecutionError
 
 
@@ -14,7 +14,7 @@ class PolicyReasoner(BaseAgent):
         self,
         text: str,
         policies: list[PolicyDocument],
-        classification: ClassificationResult
+        classification: ClassificationResult,
     ) -> dict:
         """
         Returns:
@@ -35,7 +35,12 @@ class PolicyReasoner(BaseAgent):
         except Exception as e:
             raise AgentExecutionError(f"Failed to generate policy reasoning: {e}")
 
-    def _build_prompt(self, text: str, policies: list[PolicyDocument], classification: ClassificationResult) -> str:
+    def _build_prompt(
+        self,
+        text: str,
+        policies: list[PolicyDocument],
+        classification: ClassificationResult,
+    ) -> str:
         policy_section = "\n\n".join(
             f"ID: {p.id}\nTitle: {p.title}\nContent: {p.content.strip()[:1000]}"  # truncate long docs
             for p in policies

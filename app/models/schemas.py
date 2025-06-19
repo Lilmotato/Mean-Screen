@@ -2,7 +2,9 @@
 
 from enum import Enum
 from typing import List
+
 from pydantic import BaseModel, Field
+
 
 class ClassificationLabel(str, Enum):
     hate = "hate"
@@ -41,7 +43,9 @@ class AnalyzeRequest(BaseModel):
 class ClassificationResult(BaseModel):
     label: ClassificationLabel
     confidence: float = Field(..., ge=0.0, le=1.0)
-    reasoning: str = Field(..., description="Explanation of why the content was classified as such")
+    reasoning: str = Field(
+        ..., description="Explanation of why the content was classified as such"
+    )
 
 
 class PolicyDocument(BaseModel):
@@ -50,19 +54,36 @@ class PolicyDocument(BaseModel):
     content: str
     category: str
     relevance_score: float
-    source: str = Field(..., description="Origin of the policy document (e.g., platform, legal body)")
-    policy_type: str = Field(..., description="Type of policy document such as community_guidelines or legal_framework")
-    explanation: str = Field(..., description="Why this policy was considered relevant for the classification")
+    source: str = Field(
+        ..., description="Origin of the policy document (e.g., platform, legal body)"
+    )
+    policy_type: str = Field(
+        ...,
+        description="Type of policy document such as community_guidelines or legal_framework",
+    )
+    explanation: str = Field(
+        ...,
+        description="Why this policy was considered relevant for the classification",
+    )
 
 
 class RetrievalResult(BaseModel):
     query_used: str
     policies: List[PolicyDocument]
-    total_candidates: int = Field(..., description="Number of total candidates initially retrieved before reranking")
+    total_candidates: int = Field(
+        ...,
+        description="Number of total candidates initially retrieved before reranking",
+    )
+
 
 class HateSpeechClassification(BaseModel):
-    classification: str = Field(..., description="Classification result (Hate, Toxic, Offensive, Neutral, Ambiguous)")
-    confidence: ConfidenceLevel = Field(..., description="Confidence level of classification")
+    classification: str = Field(
+        ...,
+        description="Classification result (Hate, Toxic, Offensive, Neutral, Ambiguous)",
+    )
+    confidence: ConfidenceLevel = Field(
+        ..., description="Confidence level of classification"
+    )
     reason: str = Field(..., description="Brief explanation of the classification")
 
 
@@ -80,6 +101,12 @@ class ActionRecommendation(BaseModel):
 
 class DetailedAnalyzeResponse(BaseModel):
     hate_speech: HateSpeechClassification
-    policies: List[PolicySummary] = Field(..., description="Relevant policies with summaries")
-    reasoning: str = Field(..., description="Overall reasoning based on policy analysis")
-    action: ActionRecommendation = Field(..., description="Recommended moderation action")
+    policies: List[PolicySummary] = Field(
+        ..., description="Relevant policies with summaries"
+    )
+    reasoning: str = Field(
+        ..., description="Overall reasoning based on policy analysis"
+    )
+    action: ActionRecommendation = Field(
+        ..., description="Recommended moderation action"
+    )

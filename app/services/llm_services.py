@@ -1,11 +1,12 @@
-#llm_service.py
-import os
+# llm_service.py
 import json
 import logging
-from typing import Dict, Any
+import os
+from typing import Any, Dict
+
 from dotenv import load_dotenv
-from langchain_openai import AzureChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
+from langchain_openai import AzureChatOpenAI
 
 from app.utils.exceptions import LLMServiceError
 
@@ -13,6 +14,7 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
 
 class DIALService:
     """
@@ -40,7 +42,6 @@ class DIALService:
             logger.error(f"Failed to initialize AzureChatOpenAI: {e}")
             raise LLMServiceError("DIALService initialization failed")
 
-
     async def classify_text(self, text: str) -> Dict[str, Any]:
         """
         Sends a classification prompt to the DIAL LLM and parses the response as JSON.
@@ -48,16 +49,16 @@ class DIALService:
 
         system_prompt = (
             "You are a hate speech classifier. Analyze the text and return ONLY a JSON response like:\n"
-            '{\n'
+            "{\n"
             '  "label": "hate|toxic|offensive|neutral|ambiguous",\n'
             '  "confidence": 0.85,\n'
             '  "reasoning": "Brief explanation"\n'
-            '}'
+            "}"
         )
 
         messages = [
             SystemMessage(content=system_prompt),
-            HumanMessage(content=f"Classify this text: {text}")
+            HumanMessage(content=f"Classify this text: {text}"),
         ]
 
         try:
@@ -85,8 +86,10 @@ class DIALService:
         }
         """
         messages = [
-            SystemMessage(content="You are a content policy analyst. Return only JSON."),
-            HumanMessage(content=prompt)
+            SystemMessage(
+                content="You are a content policy analyst. Return only JSON."
+            ),
+            HumanMessage(content=prompt),
         ]
 
         try:

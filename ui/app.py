@@ -1,14 +1,10 @@
 import streamlit as st
-from client import analyze_text
-from components import (
-    show_classification,
-    show_policies,
-    show_explanation,
-    show_recommendation,
-)
 from audio import record_audio, transcribe_audio
-from export_csv import create_csv_buffer, format_analysis_for_csv, generate_filename
-
+from client import analyze_text
+from components import (show_classification, show_explanation, show_policies,
+                        show_recommendation)
+from export_csv import (create_csv_buffer, format_analysis_for_csv,
+                        generate_filename)
 
 st.set_page_config(page_title="Hate Speech Dashboard", layout="wide")
 st.title("Hate Speech Detection | Mean-Screen")
@@ -16,11 +12,11 @@ st.markdown("Analyze input text using a 4-agent moderation system.")
 
 tab_text, tab_audio = st.tabs(["Text Input", "Voice Input"])
 
-if 'transcribed_text' not in st.session_state:
+if "transcribed_text" not in st.session_state:
     st.session_state.transcribed_text = ""
-if 'current_result' not in st.session_state:
+if "current_result" not in st.session_state:
     st.session_state.current_result = None
-if 'current_input' not in st.session_state:
+if "current_input" not in st.session_state:
     st.session_state.current_input = ""
 
 with tab_text:
@@ -47,7 +43,7 @@ with tab_audio:
         "Transcribed Text",
         value=st.session_state.transcribed_text,
         height=120,
-        key="transcribed_text_display"
+        key="transcribed_text_display",
     )
     st.session_state.transcribed_text = transcribed_text
 
@@ -85,7 +81,7 @@ if should_analyze:
                 data=csv_buffer.getvalue(),
                 file_name=generate_filename(),
                 mime="text/csv",
-                key="download_single"
+                key="download_single",
             )
 
             col1, col2 = st.columns(2)
@@ -101,7 +97,8 @@ if should_analyze:
 
 with st.sidebar:
     st.markdown("## Instructions")
-    st.markdown("""
+    st.markdown(
+        """
     ### Text Input
     - Type or paste text and run analysis.
 
@@ -112,13 +109,16 @@ with st.sidebar:
 
     ### Export
     - Download current result as CSV.
-    """)
+    """
+    )
 
     st.markdown("---")
     st.markdown("### System Info")
-    st.markdown("""
+    st.markdown(
+        """
     - Speech Recognition: Google
     - Audio Format: WAV
     - Language: English
     - Export Format: CSV
-    """)
+    """
+    )

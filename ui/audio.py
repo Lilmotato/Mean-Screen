@@ -1,29 +1,21 @@
-import streamlit as st
-import speech_recognition as sr
 import tempfile
+
+import speech_recognition as sr
+import streamlit as st
 from audio_recorder_streamlit import audio_recorder
 
 
 def record_audio() -> bytes | None:
     """
-    Records audio using the browser microphone widget.
-
-    Returns:
-        Bytes of recorded audio if available, else None.
+    Records audio using the browser microphone widget..
     """
-    st.markdown("🎙️ **Record your voice** (click to start/stop):")
+    st.markdown("**Record your voice** (click to start/stop):")
     return audio_recorder(pause_threshold=2.0)
 
 
 def transcribe_audio(audio_bytes: bytes) -> str:
     """
     Transcribes recorded audio to text using Google Speech Recognition.
-
-    Args:
-        audio_bytes: Raw audio bytes (WAV)
-
-    Returns:
-        Transcribed text as a string.
     """
     recognizer = sr.Recognizer()
 

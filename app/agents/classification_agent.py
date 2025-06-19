@@ -1,8 +1,9 @@
 # app/agents/classification_agent.py
 from app.agents.base import BaseAgent
+from app.models.schemas import ClassificationLabel, ClassificationResult
 from app.services.llm_services import DIALService
-from app.models.schemas import ClassificationResult, ClassificationLabel
 from app.utils.exceptions import ClassificationError
+
 
 class ClassificationAgent(BaseAgent):
     def __init__(self, llm_service: DIALService):
@@ -15,7 +16,7 @@ class ClassificationAgent(BaseAgent):
             return ClassificationResult(
                 label=ClassificationLabel(result["label"]),
                 confidence=float(result["confidence"]),
-                reasoning=result["reasoning"]
+                reasoning=result["reasoning"],
             )
         except (KeyError, ValueError, TypeError) as e:
             raise ClassificationError(f"Invalid LLM response: {e}")
