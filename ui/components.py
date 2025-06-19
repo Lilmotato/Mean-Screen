@@ -24,7 +24,7 @@ def show_lottie_animation(path: str, height: int = 150, key: str = "lottie"):
 
 
 def show_classification(result: dict[str, Any]):
-    st.subheader("🔍 Classification Result")
+    st.subheader("Classification Result")
     classification = result.get("hate_speech", {})
     st.markdown(f"- **Label**: `{classification.get('classification', 'N/A')}`")
     st.markdown(f"- **Confidence**: `{classification.get('confidence', 'N/A')}`")
@@ -32,7 +32,7 @@ def show_classification(result: dict[str, Any]):
 
 
 def show_policies(result: dict[str, Any]):
-    st.subheader("📚 Retrieved Policies")
+    st.subheader("Retrieved Policies")
     policies = result.get("policies", [])
 
     if not policies:
@@ -45,12 +45,12 @@ def show_policies(result: dict[str, Any]):
 
 
 def show_explanation(result: dict[str, Any]):
-    st.subheader("🧠 Explanation")
+    st.subheader("Explanation")
     st.markdown(result.get("reasoning", "No explanation available."))
 
 
 def show_recommendation(result: dict[str, Any]):
-    st.subheader("✅ Moderation Action")
+    st.subheader("Moderation Action")
     action = result.get("action", {})
     st.markdown(f"- **Action**: `{action.get('action', 'N/A')}`")
     st.markdown(f"- **Severity**: `{action.get('severity', 'N/A')}`")

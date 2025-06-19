@@ -4,9 +4,6 @@ from enum import Enum
 from typing import List
 from pydantic import BaseModel, Field
 
-
-# --- Core Enums ---
-
 class ClassificationLabel(str, Enum):
     hate = "hate"
     toxic = "toxic"
@@ -37,13 +34,9 @@ class SeverityLevel(str, Enum):
     CRITICAL = "Critical"
 
 
-# --- Input Schema ---
-
 class AnalyzeRequest(BaseModel):
     text: str = Field(..., description="The user input text to be analyzed.")
 
-
-# --- Agent Outputs ---
 
 class ClassificationResult(BaseModel):
     label: ClassificationLabel
@@ -66,9 +59,6 @@ class RetrievalResult(BaseModel):
     query_used: str
     policies: List[PolicyDocument]
     total_candidates: int = Field(..., description="Number of total candidates initially retrieved before reranking")
-
-
-# --- Final Output Schema (Detailed Only) ---
 
 class HateSpeechClassification(BaseModel):
     classification: str = Field(..., description="Classification result (Hate, Toxic, Offensive, Neutral, Ambiguous)")
