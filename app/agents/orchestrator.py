@@ -90,7 +90,7 @@ class HateSpeechOrchestrator:
             )
             for p in policies
         ]
-
+        print("Policy summary ran", policy_summaries )
         return DetailedAnalyzeResponse(
             hate_speech=hate_speech_classification,
             policies=policy_summaries,

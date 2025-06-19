@@ -1,10 +1,15 @@
 #!/bin/bash
-set -e
+# set -e
 
-# Load environment variables from .env
-if [ -f .env ]; then
-  export $(grep -v '^#' .env | xargs)
-fi
+# if [ -f .env ]; then
+#   while IFS='=' read -r key value; do
+#     if [[ "$key" != \#* && -n "$key" ]]; then
+#       export "$key"="$(echo "$value" | sed -e 's/^["'\'']//' -e 's/["'\'']$//')"
+#     fi
+#   done < .env
+# fi
+
+
 
 # Start FastAPI backend
 uvicorn api.main:app --host 0.0.0.0 --port 8000 &
